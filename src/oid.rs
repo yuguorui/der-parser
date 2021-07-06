@@ -18,6 +18,7 @@
 //! thing done with oids in your code. The `oid!` macro can be used in expression positions for
 //! this purpose. For example
 //! ```
+//! extern crate alloc;
 //! use der_parser::{oid, oid::Oid};
 //!
 //! # let some_oid: Oid<'static> = oid!(1.2.456);
@@ -31,6 +32,7 @@
 //! the `oid` macro can not directly be used in patterns, also not through constants.
 //! You can do this, though:
 //! ```
+//! extern crate alloc;
 //! # use der_parser::{oid, oid::Oid};
 //! # let some_oid: Oid<'static> = oid!(1.2.456);
 //! const SOME_OID: Oid<'static> = oid!(1.2.456);
@@ -50,6 +52,7 @@
 use alloc::vec::Vec;
 use alloc::string::{String, ToString};
 use alloc::borrow::Cow;
+use alloc::format;
 use core::convert::From;
 use alloc::fmt;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
@@ -438,6 +441,7 @@ mod tests {
     fn test_zero_oid() {
         #[cfg(feature = "bigint")]
         {
+            use std::vec::Vec;
             use num_bigint::BigUint;
             use num_traits::FromPrimitive;
 

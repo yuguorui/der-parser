@@ -1,3 +1,4 @@
+#![cfg(feature = "std")]
 use crate::ber::*;
 use crate::oid::Oid;
 use cookie_factory::bytes::be_u8;
@@ -6,7 +7,7 @@ use cookie_factory::gen_simple;
 use cookie_factory::multi::many_ref;
 use cookie_factory::sequence::tuple;
 use cookie_factory::{GenError, SerializeFn};
-use core::io::Write;
+use std::io::Write;
 
 // we do not use .copied() for compatibility with 1.34
 #[allow(clippy::map_clone)]
@@ -71,6 +72,7 @@ fn ber_encode_sequence<'a, W: Write + Default + AsRef<[u8]> + 'a>(
 /// Encode the provided object in an EXPLICIT tagged value, using the provided tag ans class
 ///
 /// Note: `obj` should be the object to be encapsulated, not the `ContextSpecific` variant.
+#[cfg(feature = "std")]
 #[cfg_attr(docsrs, doc(cfg(feature = "serialize")))]
 pub fn ber_encode_tagged_explicit<'a, W: Write + Default + AsRef<[u8]> + 'a>(
     tag: BerTag,
